@@ -1,11 +1,18 @@
 # Local .terraform directories
+# Reason to ignore - contains the provider plugins and related metadata (backend configs, module caches)
+
 .terraform/
 
 # .tfstate files
+# To keep track of what's been created it's stored in a terraform state file
+# These include credentials therefore state files are hidden, but state files are shared but not via github.
+# In azure can use blob storage to share the state files which also lock the files
+# Whoever is running the terraform commands it needs those files to update them + lock them
 *.tfstate
 *.tfstate.*
 
 # Crash log files
+# Can potentially have credentials in them
 crash.log
 crash.*.log
 
@@ -13,6 +20,7 @@ crash.*.log
 # password, private keys, and other secrets. These should not be part of version 
 # control as they are data points which are potentially sensitive and subject 
 # to change depending on the environment.
+# Could include info including the setup of a machine
 *.tfvars
 *.tfvars.json
 
@@ -35,3 +43,7 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+
+# Team needs to be using the same dependenecies/provider version across a project, else will be an issue
+# So share the terraform.lock.hcl file so everyone aware of the provider version
